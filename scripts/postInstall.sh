@@ -2,7 +2,7 @@
 set -o allexport; source .env; set +o allexport;
 
 #wait until the server is ready
-# echo "Waiting for software to be ready ..."
+echo "Waiting for software to be ready ..."
 sleep 60s;
 
 
@@ -11,11 +11,8 @@ target=$(docker-compose port nginx 8085)
 
 url="http://${target}/user/signup"
 
-# Perform curl request and capture the csrftoken cookie value
 csrftoken=$(curl -s -i "$url" | grep -i 'Set-Cookie: csrftoken=' | awk '{split($0,a,";"); print a[1]}' | awk '{split($0,b,"="); print b[2]}')
 
-# Print out the captured csrftoken value
-echo "csrftoken value: $csrftoken"
 
 curl 'http://'${target}'/user/signup/?&next=/projects/' \
   -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
@@ -36,9 +33,3 @@ curl 'http://'${target}'/user/signup/?&next=/projects/' \
   -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36' \
   --data-raw 'csrfmiddlewaretoken='${csrftoken}'&email='${ADMIN_EMAIL}'&password='${ADMIN_PASSWORD}'&allow_newsletters=true&allow_newsletters_visual=on'
 
-rm -rf ./base.py
-
-sed -i "s~- ./base.py:/label-studio/label_studio/base.py~~g" ./docker-compose.yml
-
-docker-compose down;
-docker-compose up -d;
