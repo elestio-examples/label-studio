@@ -1,6 +1,9 @@
 #set env vars
 set -o allexport; source .env; set +o allexport;
 
+mkdir -p ./mydata
+chown 1000:1000 ./mydata
+chmod -R 777 ./mydata
 
 cat <<EOT > ./servers.json
 {
@@ -18,3 +21,4 @@ cat <<EOT > ./servers.json
     }
 }
 EOT
+

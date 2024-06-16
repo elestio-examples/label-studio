@@ -57,7 +57,7 @@ lifeCycleConfig:
 webUI:
   - url: "https://[CI_CD_DOMAIN]"
     label: "Label Studio UI"
-    login: "admin"
+    login: "[ADMIN_EMAIL]"
     password: "[ADMIN_PASSWORD]"
   - url: "https://[CI_CD_DOMAIN]:30797"
     label: "pgAdmin"
