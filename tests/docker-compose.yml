@@ -21,6 +21,7 @@ services:
     command: nginx
 
   app:
+    user: 0:0
     stdin_open: true
     tty: true
     image: elestio4test/label-studio:${SOFTWARE_VERSION_TAG}

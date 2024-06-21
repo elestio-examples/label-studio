@@ -37,6 +37,7 @@ Edit the .env file with your own values.
 
 Run the project with the following commands
 
+    ./scripts/preInstall.sh
     docker-compose up -d
     ./scripts/postInstall.sh
 
